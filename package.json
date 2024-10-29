@@ -21,10 +21,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "tailwindcss -i ./src/index.css -o ./src/output.css",
+    "build": "react-scripts build && tailwindcss -i ./src/index.css -o ./src/output.css",
     "watch": "tailwindcss -i ./src/index.css -o ./src/output.css --watch",
     "eject": "react-scripts eject"
-  },
+  },  
   "eslintConfig": {
     "extends": [
       "react-app",
