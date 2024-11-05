@@ -29,11 +29,12 @@ import {
     fetchOrderPaymentByIdSuccess,
     fetchOrderPaymentByIdFailure
 } from '../slices/orderSlice'
+import { url } from './url'
 
  function* fetchOrderSaga(){
     try {
     
-        const response = yield call(axios.get, 'http://localhost:4000/api/orders')
+        const response = yield call(axios.get, `${url}/api/orders`)
         yield put(fetchOrderSuccess(response.data))
     } catch (error) {
         yield put(fetchOrderFailure(error.response.data.message))
@@ -47,7 +48,7 @@ import {
                 Authorization: `Bearer ${token}`
             }
         }
-        const response = yield call(axios.get, 'http://localhost:4000/api/orders/user',config)
+        const response = yield call(axios.get, `${url}/api/orders/user`,config)
         yield put(fetchOrderByUserSuccess(response.data))
     } catch (error) {
         yield put(fetchOrderByUserFailure(error.response.data.message))
@@ -61,7 +62,7 @@ import {
                 Authorization: `Bearer ${token}`
             }
         }
-        const response = yield call(axios.get, 'http://localhost:4000/api/orders/orderbydriver',config)
+        const response = yield call(axios.get, `${url}/api/orders/orderbydriver`,config)
         yield put(fetchDriverOrderSuccess(response.data))
     } catch (error) {
         yield put(fetchDriverOrderFailure(error.response.data.message))
@@ -75,7 +76,7 @@ import {
                 Authorization: `Bearer ${token}`
             }
         }
-        const response = yield call(axios.get, 'http://localhost:4000/api/orders/orderforpickup',config)
+        const response = yield call(axios.get, `${url}/api/orders/orderforpickup`,config)
         yield put(fetchOrderForPickupSuccess(response.data))
     } catch (error) {
         yield put(fetchOrderForPickupFailure(error.response.data.message))
@@ -91,7 +92,7 @@ function* createOrderSaga(action){
                 Authorization: `Bearer ${token}`
             }
         }
-        const response = yield call(axios.post,'http://localhost:4000/api/orders', details,config);
+        const response = yield call(axios.post,`${url}/api/orders`, details,config);
         console.log('new order',response.data)
         yield put(createOrderSuccess(response.data))
         navigate(`/paymentfororder/${response.data._id}`)
@@ -108,7 +109,7 @@ function* fetchOrderByIdSaga(action){
                Authorization: `Bearer ${token}`
            }
        }
-       const response = yield call(axios.get, `http://localhost:4000/api/orders/${orderId}`,{},config)
+       const response = yield call(axios.get, `${url}/api/orders/${orderId}`,{},config)
        yield put(fetchOrderByIdSuccess(response.data))
        navigate(`/usersingleorder/${orderId}`)
    } catch (error) {
@@ -124,7 +125,7 @@ function* fetchOrderPaymentByIdSaga(action){
                Authorization: `Bearer ${token}`
            }
        }
-       const response = yield call(axios.get, `http://localhost:4000/api/orders/${id}`,{},config)
+       const response = yield call(axios.get, `${url}/api/orders/${id}`,{},config)
        yield put(fetchOrderPaymentByIdSuccess(response.data))
     //    navigate(`/usersingleorder/${orderId}`)
    } catch (error) {
@@ -140,7 +141,7 @@ function* fetchOrderPaymentSaga(action){
                Authorization: `Bearer ${token}`
            }
        }
-       const response = yield call(axios.get, `http://localhost:4000/api/orders/${orderId}`,{},config)
+       const response = yield call(axios.get, `${url}/api/orders/${orderId}`,{},config)
        yield put(fetchOrderPaymentSuccess(response.data))
    } catch (error) {
        yield put(fetchOrderPaymentFailure(error.response.data.message))
@@ -150,7 +151,7 @@ function* fetchPaymentSaga(action){
     const {reference,id,navigate} = action.payload
     console.log('ref saga',reference, id)
    try {
-       const response = yield call(axios.get, `http://localhost:4000/api/payment/${reference}?id=${id}`);
+       const response = yield call(axios.get, `${url}/api/payment/${reference}?id=${id}`);
        console.log('ref saga 2',response.data)
        if(response.data.data.status==='success'){
        navigate(`/receipt/${id}`)

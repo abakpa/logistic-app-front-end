@@ -8,11 +8,11 @@ import {
     logoutSuccess,
     logoutFailure
 } from '../slices/authSlice';
-
+import {url} from './url'
 function* loginSaga(action){
     const {credentials,navigate} = action.payload
     try {
-        const response = yield call(axios.post,'http://localhost:4000/api/login', credentials);
+        const response = yield call(axios.post,`${url}/api/login`, credentials);
         const { token,user } = response.data;
         localStorage.setItem('authToken', token);
         localStorage.setItem('userId', user.id);

@@ -18,13 +18,14 @@ import {
     createDispatchFailure
 } from '../slices/dispatchSlice'
 import { fetchNotificationSuccess } from '../slices/notification'
+import { url } from './url'
 import io from 'socket.io-client'
-const socket = io.connect('http://localhost:4000')
+const socket = io.connect(url)
 
  function* fetchDispatchSaga(){
     try {
        
-        const response = yield call(axios.get, 'http://localhost:4000/api/dispatch')
+        const response = yield call(axios.get, `${url}/api/dispatch`)
         yield put(fetchDispatchSuccess(response.data))
     } catch (error) {
         yield put(fetchDispatchFailure(error.response.data.message))
@@ -41,7 +42,7 @@ const socket = io.connect('http://localhost:4000')
                 Authorization: `Bearer ${token}`
             }
         }
-        const response = yield call(axios.get,`http://localhost:4000/api/dispatch/order/${orderId}`,{},config)
+        const response = yield call(axios.get,`${url}/api/dispatch/order/${orderId}`,{},config)
         yield put(fetchDispatchByOrderIdSuccess(response.data))
     } catch (error) {
         yield put(fetchDispatchByOrderIdFailure(error.response.data.message))
@@ -58,7 +59,7 @@ function* fetchDispatchByDriverSaga(){
                 Authorization: `Bearer ${token}`
             }
         }
-        const response = yield call(axios.get,'http://localhost:4000/api/dispatch/driver',config);
+        const response = yield call(axios.get,`${url}/api/dispatch/driver`,config);
         yield put(fetchDispatchByDriverSuccess(response.data))
         // navigate('/OrderByDriver')
     } catch (error) {
@@ -76,7 +77,7 @@ function* createDispatchByDriverSaga(action){
                 Authorization: `Bearer ${token}`
             }
         }
-        const response = yield call(axios.put,`http://localhost:4000/api/orders/dispatch/${orderId}`,{},config);
+        const response = yield call(axios.put,`${url}/api/orders/dispatch/${orderId}`,{},config);
         yield put(createDispatchByDriverSuccess(response.data))
         // navigate('/OrderByDriver')
     } catch (error) {
@@ -92,7 +93,7 @@ function* createDispatchSaga(action) {
                 Authorization: `Bearer ${token}` // Set token in Authorization header
             }
         };
-        const response = yield call(axios.put, `http://localhost:4000/api/dispatch/status/${orderId}`, {}, config);
+        const response = yield call(axios.put, `${url}/api/dispatch/status/${orderId}`, {}, config);
 
         if (response.data.updatedDispatch) {
         socket.emit('send_user_message', { message: response.data.updatedDispatch.status });
