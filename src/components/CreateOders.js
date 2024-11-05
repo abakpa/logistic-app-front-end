@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {useDispatch} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import { createOrderRequest } from '../redux/slices/orderSlice'
 
@@ -7,7 +7,7 @@ import { createOrderRequest } from '../redux/slices/orderSlice'
 const CreateOrders = () =>{
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
+    const {loading} = useSelector(state=>state.order)
     const [details,setDetails] = useState({user_id:'',user_email:'',description:'',value:'',quantity:'',weight:'',pickup_address:'',delivery_address:''})
     const userId = localStorage.getItem('userId');
     const userEmail = localStorage.getItem('userEmail');
@@ -129,12 +129,40 @@ const CreateOrders = () =>{
   
             {/* Submit Button */}
             <div>
+            {loading ? (
+                        <button type="button" className="w-full p-3 bg-blue-500 text-white rounded-lg flex items-center justify-center" disabled>
+                            <svg
+                                className="animate-spin h-5 w-5 mr-2 text-white"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                role="img"
+                                aria-label="Loading"
+                            >
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                    className="opacity-25"
+                                />
+                                <path
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                                    className="opacity-75"
+                                />
+                            </svg>
+                            Processing...
+                        </button>
+                    ) : (
               <button
                 type="submit"
                 className="w-full px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 Create Order
               </button>
+                    )}
             </div>
           </form>
         </div>

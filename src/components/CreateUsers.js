@@ -1,12 +1,12 @@
 import React, {useState} from "react";
-import {useDispatch} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import { createUserRequest } from '../redux/slices/userSlice'
 
 const CreateUsers = () =>{
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
+    const {loading} = useSelector(state=>state.user)
     const [details,setDetails] = useState({name:'',phone:'',address:'',email:'',password:''})
 
     const handleChange = (e)=>{
@@ -75,12 +75,40 @@ const CreateUsers = () =>{
             {/* {error && <p className="text-red-500 text-sm">{error}</p>} */}
   
             {/* Sign-Up Button */}
+            {loading ? (
+                        <button type="button" className="w-full p-3 bg-blue-500 text-white rounded-lg flex items-center justify-center" disabled>
+                            <svg
+                                className="animate-spin h-5 w-5 mr-2 text-white"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                role="img"
+                                aria-label="Loading"
+                            >
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                    className="opacity-25"
+                                />
+                                <path
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                                    className="opacity-75"
+                                />
+                            </svg>
+                            Processing...
+                        </button>
+                    ) : (
             <button
               type="submit"
               className="w-full p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
             >
               Sign Up
             </button>
+                    )}
           </form>
         </div>
       </div>
