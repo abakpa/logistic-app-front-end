@@ -26,7 +26,7 @@ return(
           alt="Logo"
           className="h-8 w-8"
         />
-        <span className="font-bold text-xl">MyApp</span>
+        <span className="font-bold text-xl">Rider</span>
       </div>
 
       {/* Menu Items */}

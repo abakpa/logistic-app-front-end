@@ -28,7 +28,7 @@ function App() {
   return (
     <Router>
       <div className="flex min-h-screen">
-        <div className="hidden md:block">
+        <div className="mt-20">
         {token && <Sidebar />}
           </div>
         <div className="flex-1">
