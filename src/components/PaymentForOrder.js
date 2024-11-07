@@ -73,7 +73,7 @@ const PaymentForOrder = () => {
 
       // Trigger Paystack payment
       const handler = window.PaystackPop.setup({
-        key: 'pk_test_2c1249893ac50ebc7c1e9b8727c4a7c21240248f', // Replace with your Paystack public key
+        key: process.env.REACT_APP_PAYSTACK_PUBLIC_KEY, // Replace with your Paystack public key
         email: user_email,
         amount: total_cost * 100, // Paystack requires amount in kobo
         currency: 'NGN',
