@@ -36,13 +36,13 @@ const Sidebar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/neworder" className="flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-gray-200">
+              <Link to="/neworder" className="flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-gray-200" onClick={toggleSidebar}>
                 <FaPlus className="text-sm" />
                 <span>Create Order</span>
               </Link>
             </li>
             <li>
-              <Link to="/orderforuser" className="flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-gray-200">
+              <Link to="/orderforuser" className="flex items-center space-x-2 py-3 px-4 rounded-lg hover:bg-gray-200" onClick={toggleSidebar}>
                 <FaClipboardList className="text-sm" />
                 <span>Orders</span>
               </Link>

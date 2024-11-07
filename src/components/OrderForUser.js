@@ -12,7 +12,6 @@ const OrderForUser = () => {
     const { order, loading, error } = useSelector((state) => state.order);
     const [showFlashCard, setShowFlashCard] = useState(false);
 
-
     useEffect(() => {
         setShowFlashCard(true);
         // Hide the flash card after 3 seconds
