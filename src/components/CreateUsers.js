@@ -1,12 +1,11 @@
 import React, {useState} from "react";
-import {useDispatch,useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 import { createUserRequest } from '../redux/slices/userSlice'
 
 const CreateUsers = () =>{
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {loading} = useSelector(state=>state.user)
     const [details,setDetails] = useState({name:'',phone:'',address:'',email:'',password:''})
 
     const handleChange = (e)=>{
@@ -17,7 +16,9 @@ const CreateUsers = () =>{
         e.preventDefault()
         const data ={details,navigate}
         dispatch(createUserRequest(data))
+        
     }
+
     return(
         <div className="min-h-screen flex items-center justify-center bg-gray-100 mb-12">
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
@@ -75,7 +76,7 @@ const CreateUsers = () =>{
             {/* {error && <p className="text-red-500 text-sm">{error}</p>} */}
   
             {/* Sign-Up Button */}
-            {loading ? (
+            {/* {loading ? (
                         <button type="button" className="w-full p-3 bg-blue-500 text-white rounded-lg flex items-center justify-center" disabled>
                             <svg
                                 className="animate-spin h-5 w-5 mr-2 text-white"
@@ -101,14 +102,14 @@ const CreateUsers = () =>{
                             </svg>
                             Processing...
                         </button>
-                    ) : (
+                    ) : ( */}
             <button
               type="submit"
               className="w-full p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
             >
               Sign Up
             </button>
-                    )}
+                    {/* )} */}
           </form>
         </div>
       </div>
