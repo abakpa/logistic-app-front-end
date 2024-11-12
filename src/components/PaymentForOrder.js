@@ -67,7 +67,8 @@ const PaymentForOrder = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:4000/api/payment', formData);
+      const response = await axios.post('https://logistic-app-back-end.onrender.com/api/payment', formData);
+      console.log(response,">>>>>")
       const { reference } = response.data;
       const { user_email, total_cost, id } = formData;
 
